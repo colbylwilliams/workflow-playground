@@ -17,7 +17,7 @@ jobs:
 
       - name: Check for Secret
         env:
-          MY_SECRET: ${{ secrets.MY_SECRE }}
+          MY_SECRET: ${{ secrets.MY_SECRET }}
         if: env.MY_SECRET == ''
         run: |
           echo "no secret"
