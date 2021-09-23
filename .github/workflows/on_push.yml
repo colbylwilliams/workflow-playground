@@ -17,8 +17,9 @@ jobs:
 
       - name: Check for Secret
         env:
-          MY_SECRET: ${{ secrets.MY_SECRET }}
+          MY_SECRET: ${{ secrets.MY_SECRE }}
         if: env.MY_SECRET == ''
         run: |
           echo "no secret"
-          echo "::error title=Missing Secret::You must create a secret named MY_SECRET as either an environment secret (${{ github.event.repository.html_url }}/settings/environments) or a repository secret (${{ github.event.repository.html_url }}/settings/secrets/actions)"
+          echo "::error title=Missing Secret::You must create an environment secret or repository secret named MY_SECRET (${{ github.event.repository.html_url }}/settings/secrets/actions)"
+          exit 1
