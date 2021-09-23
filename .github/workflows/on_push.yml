@@ -1,0 +1,22 @@
+name: Run on Push
+
+on:
+  push:
+
+env:
+  RANDOM_ENV: 'foo'
+
+jobs:
+  do_the_thing:
+    name: Do the thing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo stuff
+        run: echo stuff
+
+      - name: Check for Secret
+        if: ${{ !secrets.MY_SECRET }}
+        run: |
+          echo "no secret"
+          echo "::error title=Missing Secret::You must create a secret named MY_SECRET as either an environment secret (${{ github.event.repository.html_url }}/settings/environments) or a repository secret (${{ github.event.repository.html_url }}/settings/secrets/actions)"
