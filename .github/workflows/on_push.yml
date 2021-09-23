@@ -21,7 +21,7 @@ jobs:
           secret = '${{ secrets[matrix.secret] }}'
           if not secret:
             print('::error title=Missing Secret ${{ matrix.secret }}::You must create an environment secret or repository secret named ${{ matrix.secret }} (${{ github.event.repository.html_url }}/settings/secrets/actions)')
-            sys.exit()
+            sys.exit('::error title=Missing Secret ${{ matrix.secret }}::You must create an environment secret or repository secret named ${{ matrix.secret }} (${{ github.event.repository.html_url }}/settings/secrets/actions)')
 
   do_the_thing:
     name: Do the thing
