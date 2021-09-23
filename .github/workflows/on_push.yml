@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        secret: ['${{ secrets.MY_SECRET }}', '${{ secrets.MY_SECRETB }}']
+        secret: ['MY_SECRET', 'MY_SECRETB']
     steps:
-      - name: Check for secret
+      - name: Check for secret ${{ matrix.secret }}
         shell: python
         run: |
           import sys
-          print(${{ matrix.secret }})
-          if not ${{ matrix.secret }}:
-            print('::error title=Missing Secret::You must create an environment secret or repository secret named MY_SECRET (${{ github.event.repository.html_url }}/settings/secrets/actions)')
+          secret = '${{ secrets[matrix.secret] }}'
+          if not secret:
+            print('::error title=Missing Secret::You must create an environment secret or repository secret named ${{ matrix.secret }} (${{ github.event.repository.html_url }}/settings/secrets/actions)')
             sys.exit()
 
   do_the_thing:
