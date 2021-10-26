@@ -26,7 +26,7 @@ exec 1>$ACTION_OUTPUT                   # forward stdout to log file
 exec 2>&1                               # redirect stderr to stdout
 
 
-find "/docker-entrypoint.d/" -follow -type f -iname "*.sh" -print | sort -n | while read -r f; do
+find "/entrypoint.d/" -follow -type f -iname "*.sh" -print | sort -n | while read -r f; do
     # execute each shell script found enabled for execution
     if [ -x "$f" ]; then trace "Running '$f'"; "$f"; fi
 done
@@ -63,14 +63,14 @@ fi
 # Option 2: a script file following the pattern [ACTION_NAME].sh exists in the
 #           current working directory (catalog item directory)
 # Option 3: a script file following the pattern [ACTION_NAME].sh exists in the
-#           /docker-runner.d directory (docker task script directory)
+#           /actions.d directory (action script directory)
 
 script="$@"
 
 if [[ -z "$script" ]]; then
     script="$(find $PWD -maxdepth 1 -iname "$ACTION_NAME.sh")"
     if [[ -z "$script" ]]; then
-        script="$(find /docker-runner.d -maxdepth 1 -iname "$ACTION_NAME.sh")"
+        script="$(find /actions.d -maxdepth 1 -iname "$ACTION_NAME.sh")"
     fi
     if [[ -z "$script" ]]; then
         error "Action $ACTION_NAME is not supported." && exit 1

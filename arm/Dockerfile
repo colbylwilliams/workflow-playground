@@ -5,7 +5,7 @@ WORKDIR /
 # install bicep
 RUN az bicep install
 
-# Grab all .sh files from docker-runner.d, copy to
-# root docker-runner.d, and ake them all executable
-COPY docker-runner.d/* /docker-runner.d/
-RUN find /docker-runner.d/ -type f -iname "*.sh" -exec chmod +x {} \;
+# Grab all .sh files from actions.d, copy to
+# root actions.d, and ake them all executable
+COPY actions.d/* /actions.d/
+RUN find /actions.d/ -type f -iname "*.sh" -exec chmod +x {} \;
