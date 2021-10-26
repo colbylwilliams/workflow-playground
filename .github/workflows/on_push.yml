@@ -1,39 +1,39 @@
-name: Run on Push
+# name: Run on Push
 
-on:
-  push:
+# on:
+#   push:
 
-env:
-  RANDOM_ENV: 'foo'
+# env:
+#   RANDOM_ENV: 'foo'
 
-jobs:
-  ensure_secrets:
-    name: Ensure Secrets
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        secret: ['MY_SECRET', 'MY_SECRETB']
-    steps:
-      - name: Check for secret ${{ matrix.secret }}
-        shell: python
-        run: |
-          import sys
-          if not '${{ secrets[matrix.secret] }}':
-            sys.exit('::error title=Missing Secret ${{ matrix.secret }}::You must create an environment secret or repository secret named ${{ matrix.secret }} (${{ github.event.repository.html_url }}/settings/secrets/actions)')
+# jobs:
+#   ensure_secrets:
+#     name: Ensure Secrets
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         secret: ['MY_SECRET', 'MY_SECRETB']
+#     steps:
+#       - name: Check for secret ${{ matrix.secret }}
+#         shell: python
+#         run: |
+#           import sys
+#           if not '${{ secrets[matrix.secret] }}':
+#             sys.exit('::error title=Missing Secret ${{ matrix.secret }}::You must create an environment secret or repository secret named ${{ matrix.secret }} (${{ github.event.repository.html_url }}/settings/secrets/actions)')
 
-  do_the_thing:
-    name: Do the thing
-    runs-on: ubuntu-latest
-    needs: ensure_secrets
+#   do_the_thing:
+#     name: Do the thing
+#     runs-on: ubuntu-latest
+#     needs: ensure_secrets
 
-    steps:
-      - name: Echo stuff
-        run: echo stuff
+#     steps:
+#       - name: Echo stuff
+#         run: echo stuff
 
-      - name: Check for Secret
-        env:
-          MY_SECRET: ${{ secrets.MY_SECRET }}
-        if: env.MY_SECRET == ''
-        run: |
-          echo "::error title=Missing Secret::You must create an environment secret or repository secret named MY_SECRET (${{ github.event.repository.html_url }}/settings/secrets/actions)"
-          exit 1
+#       - name: Check for Secret
+#         env:
+#           MY_SECRET: ${{ secrets.MY_SECRET }}
+#         if: env.MY_SECRET == ''
+#         run: |
+#           echo "::error title=Missing Secret::You must create an environment secret or repository secret named MY_SECRET (${{ github.event.repository.html_url }}/settings/secrets/actions)"
+#           exit 1
