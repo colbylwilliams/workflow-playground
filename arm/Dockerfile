@@ -1,5 +1,5 @@
 # TODO: Update to the real image location
-FROM mcr.microsoft.com/fidalgo/core:latest
+FROM ghcr.io/colbylwilliams/workflow-playground/core:latest
 WORKDIR /
 
 # install bicep
