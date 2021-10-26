@@ -13,9 +13,9 @@ jobs:
   core:
     name: Build Core
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: read
-    #   packages: write
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout
@@ -42,8 +42,8 @@ jobs:
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.IMAGE_REPO }}/core:latest
-            ${{ env.IMAGE_REPO }}/core:${{ env.IMAGE_VERSION }}
+            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_REPO }}/core:latest
+            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_REPO }}/core:${{ env.IMAGE_VERSION }}
 
   # runner:
   #   name: Build Runner
