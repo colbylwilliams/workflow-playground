@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print GitHub
-        run: python "./github_env.py"
+        run: python github_env.py
