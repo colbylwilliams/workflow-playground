@@ -3,12 +3,23 @@ name: Run on Push
 on:
   push:
 
+env:
+  REGISTRY_URL: ${{ vars.REGISTRY_URL || 'ghcr.io' }}
+  REGISTRY_URL_BAD: ${{ vars.REGISTRY_URL_BAD || 'ghcr.io' }}
+  REGISTRY_URL_TEST: ${{ vars.REGISTRY_URL }}
+
 jobs:
   on_push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Print GitHub
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: python "./github_env.py"
+      - run: echo "env.REGISTRY_URL ${{ env.REGISTRY_URL }}"
+      - run: echo "env.REGISTRY_URL_BAD ${{ env.REGISTRY_URL_BAD }}"
+      - run: echo "env.REGISTRY_URL_TEST ${{ env.REGISTRY_URL_TEST }}"
+      - run: echo "vars.REGISTRY_URL ${{ vars.REGISTRY_URL }}"
+      - run: echo "vars.REGISTRY_URL_BAD ${{ vars.REGISTRY_URL_BAD }}"
+
+      # - uses: actions/checkout@v3
+      # - name: Print GitHub
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   run: python "./github_env.py"
