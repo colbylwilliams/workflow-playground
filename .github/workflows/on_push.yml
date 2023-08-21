@@ -12,5 +12,5 @@ jobs:
     steps:
       - run: echo "env.THE_THING ${{ env.THE_THING }}"
       - id: setup
-        run: echo "lowercase=${THE_THING,,}" >> $$GITHUB_OUTPUT
+        run: echo "lowercase=${${{ env.THE_THING }},,}" >> $GITHUB_OUTPUT
       - run: echo "lowercase=${{ steps.setup.outputs.lowercase }}"
