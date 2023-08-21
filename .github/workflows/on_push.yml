@@ -4,13 +4,14 @@ on:
   push:
 
 env:
-  THE_THING: AThingThatIsSet
+  PROVIDER: DEvCenter
 
 jobs:
   on_push:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "env.THE_THING ${{ env.THE_THING }}"
       - id: setup
-        run: THING_LOWERCASE=${THE_THING,,} && echo "lowercase=$THING_LOWERCASE" >> $GITHUB_OUTPUT
-      - run: echo "lowercase=${{ steps.setup.outputs.lowercase }}"
+        run: PROVIDER_NAME=${{ env.PROVIDER }} && IMAGE_NAME=${PROVIDER_NAME,,} && echo "name=$IMAGE_NAME" >> $GITHUB_OUTPUT
+      - run: echo "foo/${{ env.IMAGE_NAME}}"
+        env:
+          IMAGE_NAME: "provider-${{ steps.setup.outputs.name }}"
