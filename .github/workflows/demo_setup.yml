@@ -15,9 +15,9 @@ on:
         default: false
 
 env:
-  BRANCH_NAME: "${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }})"
+  BRANCH_NAME: "${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}"
 
-run-name: Setup Demo ("${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }})")
+run-name: Setup Demo (${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}"
 
 jobs:
   setup:
@@ -25,4 +25,4 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "hello world $BRANCH_NAME"
+      - run: echo "hello world $BRANCH_NAME" >> $GITHUB_STEP_SUMMARY
