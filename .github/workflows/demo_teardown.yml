@@ -1,0 +1,42 @@
+name: Setup Teardown
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: string
+        required: true
+        description: 'The root name of the branches (if you changed it).'
+        default: basket-update
+      number:
+        type: number
+        required: true
+        description: 'The number of the test demo'
+
+run-name: Teardown Demo ${{ inputs.name }}${{ inputs.number }}
+
+jobs:
+  branch:
+    name: branch ${{ matrix.branch }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        branch: ['a', 'b']
+
+    env:
+      BRANCH_NAME: '${{ inputs.name }}${{ matrix.branch }}${{ inputs.number }}'
+      COMMIT_MESSAGE: "update banner for weekend sale${{ format(' ({0})', inputs.number) }}"
+      PR_TITLE: "${{ format('[{0}] ', matrix.branch) }}Banner update for weekend sale${{ format(' ({0})', inputs.number) }}"
+
+    steps:
+      - name: git config
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: create PR
+        continue-on-error: true
+        run: gh pr close $BRANCH_NAME -d
+        env:
+          GITHUB_TOKEN: ${{ secrets.NOTHING_INTERESTING }}
