@@ -75,18 +75,18 @@ jobs:
     steps:
       - name: setup
         run: |
-          echo "Two branches (and PRs) have been created:"
-          echo "- $PREFIXa$SUFFIX (broken)"
-          echo "- $PREFIXb$SUFFIX (working)"
-          echo ""
-          echo "With the repo already cloned, set up your dev box by running:"
-          echo ""
-          echo '```sh'
-          echo "git fetch"
-          echo '```'
-          echo ""
-          echo "Then, to work on the broken branch, run:"
-          echo ""
-          echo '```sh'
-          echo "git switchc $PREFIXa$SUFFIX"
-          echo '```'
+          echo "Two branches (and PRs) have been created:" >> $GITHUB_STEP_SUMMARY
+          echo "- $PREFIXa$SUFFIX (broken)" >> $GITHUB_STEP_SUMMARY
+          echo "- $PREFIXb$SUFFIX (working)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "With the repo already cloned, set up your dev box by running:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```sh' >> $GITHUB_STEP_SUMMARY
+          echo "git fetch" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Then, to work on the broken branch, run:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```sh' >> $GITHUB_STEP_SUMMARY
+          echo "git switchc $PREFIXa$SUFFIX" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
