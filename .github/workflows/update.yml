@@ -23,6 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' || (contains(github.event.ref, 'refs/heads') && !github.event.created)
 
+    outputs:
+      type: ${{ steps.setup.outputs.type }}
+      name: ${{ steps.setup.outputs.name }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -32,3 +36,38 @@ jobs:
 
       - run: echo "Type ${{ steps.setup.outputs.type }}" >> $GITHUB_STEP_SUMMARY
       - run: echo "Name ${{ steps.setup.outputs.name }}" >> $GITHUB_STEP_SUMMARY
+
+  create:
+    name: Create Environment (${{ needs.setup.outputs.type }})
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (contains(github.event.ref, 'refs/heads') && !github.event.created)
+
+    needs: setup
+
+    steps:
+      - name: Setup Environment
+        uses: colbylwilliams/deployment-environments@main
+
+      - name: Website
+        id: website
+        run: echo "url=https://$ADE_NAME.azurewebsites.net" >> $GITHUB_OUTPUT
+
+      - name: Setup
+        run: |
+          echo "### Deployment Successful :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "- View the website: ${{ steps.website.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- View resources in the [Azure Portal]($ADE_PORTAL_URL)" >> $GITHUB_STEP_SUMMARY
+          echo '---' >> $GITHUB_STEP_SUMMARY
+          echo "### Use the [azd cli](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) to deploy the application" >> $GITHUB_STEP_SUMMARY
+          echo "1. First, make sure azd is configured azd to use DevCenter:" >> $GITHUB_STEP_SUMMARY
+          echo '```sh' >> $GITHUB_STEP_SUMMARY
+          echo "azd config set platform.type devcenter" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo '2. In the root of the cloned repsitory, select the `${{ needs.setup.outputs.name }}` environment created for this ${{ github.event_name == 'pull_request' && 'PR' || 'branch' }}:' >> $GITHUB_STEP_SUMMARY
+          echo '```sh' >> $GITHUB_STEP_SUMMARY
+          echo "azd env select $ADE_NAME" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "3. When you make changes, deploy them to the new environment:" >> $GITHUB_STEP_SUMMARY
+          echo '```sh' >> $GITHUB_STEP_SUMMARY
+          echo "azd deploy" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
