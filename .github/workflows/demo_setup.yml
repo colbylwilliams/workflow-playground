@@ -70,6 +70,7 @@ jobs:
     env:
       BRANCH_A: ${{ inputs.name }}a${{ inputs.go-time && '' || github.run_number }}
       BRANCH_B: ${{ inputs.name }}b${{ inputs.go-time && '' || github.run_number }}
+      TEARDOWN: ${{ github.server_url }}/${{ github.repository }}/actions/workflows/demo_teardown.yml
 
     steps:
       - name: setup
@@ -88,4 +89,6 @@ jobs:
           echo '```sh' >> $GITHUB_STEP_SUMMARY
           echo "git switch ${{ env.BRANCH_A }}" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          echo '3. Then open the (broken) file (line 8): [`src/Web/Pages/Basket/Index.cshtml`](https://github.com/dotnet-architecture/eshoponweb-ignite/blob/${{ env.BRANCH_A }}/src/Web/Pages/Basket/Index.cshtml#L8)' >> $GITHUB_STEP_SUMMARY
+          echo '3. Then open the (broken) file: [`src/Web/Pages/Basket/Index.cshtml`](https://github.com/dotnet-architecture/eshoponweb-ignite/blob/${{ env.BRANCH_A }}/src/Web/Pages/Basket/Index.cshtml#L8) (line 8)' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "You can delete everything created by this wokflow by running the [Actions Teardown](${{ env.TEARDOWN }}) workflow." >> $GITHUB_STEP_SUMMARY
