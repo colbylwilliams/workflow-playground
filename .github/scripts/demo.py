@@ -43,13 +43,18 @@ def _replace_placeholder(file, holder, content):
         f.writelines(lines)
 
 if reverse:
+    print('Reversing demo to main state...')
     _replace_placeholder(home_page, good_replacement, placeholder)
     _replace_placeholder(basket_page, bad_replacement, placeholder)
     _replace_placeholder(basket_page, good_replacement, placeholder)
 
 else:
+    print(f'Setting up demo for branch {branch}...')
+    print('adding sale banner to home page...')
     _replace_placeholder(home_page, placeholder, good_replacement)
     if bad:
+        print('adding bad sale banner to basket page...')
         _replace_placeholder(basket_page, placeholder, bad_replacement)
     if good:
+        print('adding good sale banner to basket page...')
         _replace_placeholder(basket_page, placeholder, good_replacement)
