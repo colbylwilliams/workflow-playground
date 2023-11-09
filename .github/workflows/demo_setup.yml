@@ -49,11 +49,11 @@ jobs:
           echo "git checkout -b $BRANCH_NAME"
 
       - name: break it
-        run: python3 ./github/scripts/demo.py --branch ${{ matrix.branch }}"
+        run: python3 ./github/scripts/demo.py --branch ${{ matrix.branch }}
 
       - name: commit and push
         run: |
-          echo "git commit -a -m "$COMMIT_MESSAGE""
+          echo "git commit -a -m $COMMIT_MESSAGE"
           echo "git push origin $BRANCH_NAME"
 
       - name: create PR
