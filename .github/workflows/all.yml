@@ -1,0 +1,22 @@
+name: All
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  setup:
+    name: Setup Environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Environment
+        id: setup
+        uses: colbylwilliams/deployment-environments@main
+
+      - run: echo "Type ${{ steps.setup.outputs.type }}" >> $GITHUB_STEP_SUMMARY
+      - run: echo "Name ${{ steps.setup.outputs.name }}" >> $GITHUB_STEP_SUMMARY
+
+      - run: echo "${{ github }}"

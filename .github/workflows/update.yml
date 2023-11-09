@@ -1,0 +1,34 @@
+name: Update Environment
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  push:
+    paths-ignore:
+      - .github/**
+      - .vscode/**
+      - README.md
+      - LICENSE
+  pull_request:
+    types: [synchronize]
+
+concurrency:
+  group: ${{ github.event.number || github.ref_name }}
+
+jobs:
+  setup:
+    name: Setup Environment
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (contains(github.event.ref, 'refs/heads') && !github.event.created)
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Environment
+        id: setup
+        uses: colbylwilliams/deployment-environments@main
+
+      - run: echo "Type ${{ steps.setup.outputs.type }}" >> $GITHUB_STEP_SUMMARY
+      - run: echo "Name ${{ steps.setup.outputs.name }}" >> $GITHUB_STEP_SUMMARY
