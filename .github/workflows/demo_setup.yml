@@ -3,16 +3,16 @@ name: Setup Demo
 on:
   workflow_dispatch:
     inputs:
+      name:
+        type: string
+        required: true
+        description: 'The root name of the branches (number will be appended unless day-of).'
+        default: basket-update
       go-time:
         type: boolean
         required: true
         description: 'Only check this for the day-of setup'
         default: false
-      name:
-        type: string
-        required: true
-        description: "The root name of the the branches. Unless it's the day-of, this a number will be appended to the end."
-        default: basket-update
 
 env:
   BRANCH_NAME: "${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }})"
