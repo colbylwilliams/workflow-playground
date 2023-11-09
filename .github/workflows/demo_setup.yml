@@ -46,15 +46,15 @@ jobs:
 
       - name: git checkout branch-a
         run: |
-          git checkout -b $BRANCH_NAME
+          echo "git checkout -b $BRANCH_NAME"
 
       - name: break it
         run: python3 ./github/scripts/demo.py --branch ${{ matrix.branch }}"
 
       - name: commit and push
         run: |
-          git commit -a -m "$COMMIT_MESSAGE"
-          git push origin $BRANCH_NAME
+          echo "git commit -a -m "$COMMIT_MESSAGE""
+          echo "git push origin $BRANCH_NAME"
 
       - name: create PR
-        run: gh pr create -B main -H $BRANCH_NAME --title $PR_TITLE --fill
+        run: echo "gh pr create -B main -H $BRANCH_NAME --title $PR_TITLE --fill"
