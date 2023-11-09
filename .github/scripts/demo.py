@@ -13,19 +13,22 @@ pages_dir = dir_root / 'src' / 'Web' / 'Pages'
 home_page = pages_dir / 'Index.cshtml'
 basket_page = pages_dir / 'Basket' / 'Index.cshtml'
 
-bad_replacement = '<img class="esh-catalog-title" src="~/images/main_banner_text.png" />'
-good_replacement = '<img class="esh-catalog-title" src="~/images/main_banner_text.png" alt="All t-shirts on sale this weekend" />'
+bad_replacement = '        <img class="esh-catalog-title" src="~/images/main_banner_text.png" />\n'
+good_replacement = '        <img class="esh-catalog-title" src="~/images/main_banner_text.png" alt="All t-shirts on sale this weekend" />\n'
 
-placeholder = '@* DEMO PLACEHOLDER *@'
+placeholder = '        @* DEMO PLACEHOLDER *@\n'
 
 parser = argparse.ArgumentParser()
-parser.add_argument('branch', choices=['a', 'b'])
-parser.add_argument('--reverse', action='store_true')
+parser.add_argument('-b', '--branch', choices=['a', 'b'])
+parser.add_argument('-r', '--reverse', action='store_true')
 
 args = parser.parse_args()
 
 branch = args.branch
 reverse = args.reverse
+
+if not branch and not reverse:
+    raise ValueError('-b | --branch must be provided when reverse is not set')
 
 bad = branch == 'a'
 good = branch == 'b'
@@ -49,4 +52,4 @@ else:
     if bad:
         _replace_placeholder(basket_page, placeholder, bad_replacement)
     if good:
-        _replace_placeholder(basket_page, good_replacement)
+        _replace_placeholder(basket_page, placeholder, good_replacement)
