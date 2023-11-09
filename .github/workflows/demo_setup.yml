@@ -1,7 +1,6 @@
 name: Setup Demo
 
 permissions:
-  id-token: write
   contents: read
   issues: write
   pull-requests: write
@@ -44,7 +43,7 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: git checkout branch-a
+      - name: git checkout branch
         run: |
           git checkout -b $BRANCH_NAME
 
@@ -58,3 +57,5 @@ jobs:
 
       - name: create PR
         run: gh pr create -B main -H $BRANCH_NAME --title $PR_TITLE --fill
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
