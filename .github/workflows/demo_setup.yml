@@ -37,6 +37,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.NOTHING_INTERESTING }}
 
       - name: git config
         run: |
@@ -58,4 +60,4 @@ jobs:
       - name: create PR
         run: gh pr create -B main -H $BRANCH_NAME --title "$PR_TITLE" --fill
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NOTHING_INTERESTING }}
