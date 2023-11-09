@@ -26,8 +26,6 @@ jobs:
 
     env:
       BRANCH_NAME: '${{ inputs.name }}${{ matrix.branch }}${{ inputs.number }}'
-      COMMIT_MESSAGE: "update banner for weekend sale${{ format(' ({0})', inputs.number) }}"
-      PR_TITLE: "${{ format('[{0}] ', matrix.branch) }}Banner update for weekend sale${{ format(' ({0})', inputs.number) }}"
 
     steps:
       - uses: actions/checkout@v3

@@ -33,7 +33,7 @@ jobs:
     env:
       BRANCH_NAME: "${{ inputs.name }}${{ matrix.branch }}${{ inputs.go-time && '' || github.run_number }}"
       COMMIT_MESSAGE: "update banner for weekend sale${{ inputs.go-time && '' || format(' ({0})', github.run_number) }}"
-      PR_TITLE: "${{ inputs.go-time && '' || format('[{0}] ', matrix.branch) }}Banner update for weekend sale${{ inputs.go-time && '' || format(' ({0})', github.run_number) }}"
+      PR_TITLE: "Banner update for weekend sale${{ inputs.go-time && '' || format(' ({0})', github.run_number) }}"
 
     steps:
       - uses: actions/checkout@v3
@@ -61,3 +61,32 @@ jobs:
         run: gh pr create -B main -H $BRANCH_NAME --title "$PR_TITLE" --fill
         env:
           GITHUB_TOKEN: ${{ secrets.NOTHING_INTERESTING }}
+
+  summary:
+    name: summary
+    runs-on: ubuntu-latest
+    needs: branch
+    if: always()
+
+    env:
+      PREFIX: ${{ inputs.name }}
+      SUFFIX: ${{ inputs.go-time && '' || github.run_number }}
+
+    steps:
+      - name: setup
+        run: |
+          echo "Two branches (and PRs) have been created:"
+          echo "- $PREFIXa$SUFFIX (broken)"
+          echo "- $PREFIXb$SUFFIX (working)"
+          echo ""
+          echo "With the repo already cloned, set up your dev box by running:"
+          echo ""
+          echo '```sh'
+          echo "git fetch"
+          echo '```'
+          echo ""
+          echo "Then, to work on the broken branch, run:"
+          echo ""
+          echo '```sh'
+          echo "git switchc $PREFIXa$SUFFIX"
+          echo '```'
