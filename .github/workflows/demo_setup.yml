@@ -1,4 +1,4 @@
-name: Setup Demo
+name: Demo Setup
 
 permissions:
   contents: write
@@ -19,7 +19,7 @@ on:
         description: 'Only check this for the day-of setup'
         default: false
 
-run-name: Setup Demo ${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}
+run-name: Demo Setup ${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}
 
 jobs:
   branch:
