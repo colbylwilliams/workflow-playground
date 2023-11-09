@@ -30,12 +30,16 @@ jobs:
       PR_TITLE: "${{ format('[{0}] ', matrix.branch) }}Banner update for weekend sale${{ format(' ({0})', inputs.number) }}"
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.NOTHING_INTERESTING }}
+
       - name: git config
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: create PR
+      - name: close PR
         continue-on-error: true
         run: gh pr close $BRANCH_NAME -d
         env:
