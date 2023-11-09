@@ -1,5 +1,11 @@
 name: Setup Demo
 
+permissions:
+  id-token: write
+  contents: read
+  issues: write
+  pull-requests: write
+
 on:
   workflow_dispatch:
     inputs:
@@ -14,15 +20,41 @@ on:
         description: 'Only check this for the day-of setup'
         default: false
 
-env:
-  BRANCH_NAME: "${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}"
-
 run-name: Setup Demo ${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}
 
 jobs:
-  setup:
-    name: Setup
+  branch-a:
+    name: branch ${{ matrix.branch }}
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        branch: ['a', 'b']
+
+    env:
+      BRANCH_NAME: "${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}${{ matrix.branch }}"
+      COMMIT_MESSAGE: "updates banner for weekend sale ${{ inputs.go-time && '' || github.run_number }}"
+      PR_TITLE: "[${{ matrix.branch }}] Banner update for weekend sale ${{ inputs.go-time && '' || github.run_number }}"
+
     steps:
-      - run: echo "hello world $BRANCH_NAME" >> $GITHUB_STEP_SUMMARY
+      - uses: actions/checkout@v3
+
+      - name: git config
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: git checkout branch-a
+        run: |
+          git checkout -b $BRANCH_NAME
+
+      - name: break it
+        run: python3 ./github/scripts/demo.py --branch ${{ matrix.branch }}"
+
+      - name: commit and push
+        run: |
+          git commit -a -m "$COMMIT_MESSAGE"
+          git push origin $BRANCH_NAME
+
+      - name: create PR
+        run: gh pr create -B main -H $BRANCH_NAME --title $PR_TITLE --fill
