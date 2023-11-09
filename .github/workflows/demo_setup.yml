@@ -17,7 +17,7 @@ on:
 env:
   BRANCH_NAME: "${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}"
 
-run-name: Setup Demo (${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}"
+run-name: Setup Demo ${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}
 
 jobs:
   setup:
