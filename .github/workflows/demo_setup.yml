@@ -66,18 +66,13 @@ jobs:
     name: summary
     runs-on: ubuntu-latest
     needs: branch
-    if: always()
-
-    env:
-      PREFIX: ${{ inputs.name }}
-      SUFFIX: ${{ inputs.go-time && '' || github.run_number }}
 
     steps:
       - name: setup
         run: |
           echo "Two branches (and PRs) have been created:" >> $GITHUB_STEP_SUMMARY
-          echo "- ${{ inputs.name }}a${{ inputs.go-time && '' || github.run_number }} (broken)" >> $GITHUB_STEP_SUMMARY
-          echo "- ${{ inputs.name }}b${{ inputs.go-time && '' || github.run_number }} (working)" >> $GITHUB_STEP_SUMMARY
+          echo "- `${{ inputs.name }}a${{ inputs.go-time && '' || github.run_number }}` _(broken)_" >> $GITHUB_STEP_SUMMARY
+          echo "- `${{ inputs.name }}b${{ inputs.go-time && '' || github.run_number }}` _(fixed)_" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "With the repo already cloned, set up your dev box:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
