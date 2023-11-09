@@ -30,8 +30,6 @@ jobs:
       PR_TITLE: "${{ format('[{0}] ', matrix.branch) }}Banner update for weekend sale${{ format(' ({0})', inputs.number) }}"
 
     steps:
-      - run: echo ${{ github }}
-
       - name: git config
         run: |
           git config --global user.name "${{ github.actor }}"
