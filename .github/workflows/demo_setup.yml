@@ -32,7 +32,7 @@ jobs:
         branch: ['a', 'b']
 
     env:
-      BRANCH_NAME: "${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}${{ matrix.branch }}"
+      BRANCH_NAME: "${{ inputs.name }}${{ matrix.branch }}${{ inputs.go-time && '' || github.run_number }}"
       COMMIT_MESSAGE: "updates banner for weekend sale ${{ inputs.go-time && '' || github.run_number }}"
       PR_TITLE: "[${{ matrix.branch }}] Banner update for weekend sale ${{ inputs.go-time && '' || github.run_number }}"
 
@@ -46,15 +46,15 @@ jobs:
 
       - name: git checkout branch-a
         run: |
-          echo "git checkout -b $BRANCH_NAME" >> $GITHUB_STEP_SUMMARY
+          git checkout -b $BRANCH_NAME
 
       - name: break it
         run: python3 .github/scripts/demo.py --branch ${{ matrix.branch }}
 
       - name: commit and push
         run: |
-          echo "git commit -a -m $COMMIT_MESSAGE" >> $GITHUB_STEP_SUMMARY
-          echo "git push origin $BRANCH_NAME" >> $GITHUB_STEP_SUMMARY
+          git commit -a -m "$COMMIT_MESSAGE"
+          git push origin $BRANCH_NAME
 
       - name: create PR
-        run: echo "gh pr create -B main -H $BRANCH_NAME --title $PR_TITLE --fill" >> $GITHUB_STEP_SUMMARY
+        run: gh pr create -B main -H $BRANCH_NAME --title $PR_TITLE --fill
