@@ -58,7 +58,7 @@ jobs:
           echo '```sh' >> $GITHUB_STEP_SUMMARY
           echo "azd config set platform.type devcenter" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          echo '2. Make sure you're in the root of the cloned repsitory, then select the `${{ needs.setup.outputs.name }}` environment created for this ${{ github.event_name == 'pull_request' && 'PR' || 'branch' }}:' >> $GITHUB_STEP_SUMMARY
+          echo '2. Make sure you are in the root of the cloned repsitory, then select the `${{ needs.setup.outputs.name }}` environment created for this ${{ github.event_name == 'pull_request' && 'PR' || 'branch' }}:' >> $GITHUB_STEP_SUMMARY
           echo '```sh' >> $GITHUB_STEP_SUMMARY
           echo "azd env select $ADE_NAME" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
