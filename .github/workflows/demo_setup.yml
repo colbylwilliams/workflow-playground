@@ -22,7 +22,7 @@ on:
 run-name: Setup Demo ${{ inputs.name }}${{ inputs.go-time && '' || github.run_number }}
 
 jobs:
-  branch-a:
+  branch:
     name: branch ${{ matrix.branch }}
     runs-on: ubuntu-latest
 
@@ -32,8 +32,8 @@ jobs:
 
     env:
       BRANCH_NAME: "${{ inputs.name }}${{ matrix.branch }}${{ inputs.go-time && '' || github.run_number }}"
-      COMMIT_MESSAGE: "updates banner for weekend sale ${{ inputs.go-time && '' || github.run_number }}"
-      PR_TITLE: "[${{ matrix.branch }}] Banner update for weekend sale ${{ inputs.go-time && '' || github.run_number }}"
+      COMMIT_MESSAGE: "update banner for weekend sale${{ inputs.go-time && '' || format(' ({0})', github.run_number) }}"
+      PR_TITLE: "${{ inputs.go-time && '' || format('[{0}] ', matrix.branch) }}Banner update for weekend sale${{ inputs.go-time && '' || format(' ({0})', github.run_number) }}"
 
     steps:
       - uses: actions/checkout@v3
