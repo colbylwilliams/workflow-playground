@@ -56,6 +56,6 @@ jobs:
           git push origin $BRANCH_NAME
 
       - name: create PR
-        run: gh pr create -B main -H $BRANCH_NAME --title $PR_TITLE --fill
+        run: gh pr create -B main -H $BRANCH_NAME --title "$PR_TITLE" --fill
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
