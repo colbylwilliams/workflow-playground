@@ -37,8 +37,8 @@ jobs:
       - run: echo "Type ${{ steps.setup.outputs.type }}" >> $GITHUB_STEP_SUMMARY
       - run: echo "Name ${{ steps.setup.outputs.name }}" >> $GITHUB_STEP_SUMMARY
 
-  create:
-    name: Create Environment (${{ needs.setup.outputs.type }})
+  update:
+    name: Update Environment (${{ needs.setup.outputs.type }})
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' || (contains(github.event.ref, 'refs/heads') && !github.event.created)
 
@@ -71,3 +71,24 @@ jobs:
           echo '```sh' >> $GITHUB_STEP_SUMMARY
           echo "azd deploy" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+
+  test:
+    name: Test Environment
+    if: github.event_name == 'pull_request'
+
+    needs:
+      - setup
+      - update
+
+    permissions:
+      contents: read
+      id-token: write
+
+    uses: ./.github/workflows/env_test.yml
+    with:
+      name: ${{ needs.setup.outputs.name }}
+      type: ${{ needs.setup.outputs.type }}
+      # url: ${{ needs.update.outputs.url }}
+      # subscription: ${{ needs.update.outputs.subscription }}
+      # resource-group: ${{ needs.update.outputs.resource-group }}
+    secrets: inherit

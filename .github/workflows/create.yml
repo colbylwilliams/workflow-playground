@@ -66,3 +66,41 @@ jobs:
           echo '```sh' >> $GITHUB_STEP_SUMMARY
           echo "azd deploy" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Add Link to Pull Request
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const webUrl = '${{ steps.website.outputs.url }}'
+            const portalUrl = 'https://portal.azure.com/#@72f988bf-86f1-41af-91ab-2d7cd011db47/resource/subscriptions/4adee40b-e41a-48a8-92be-256e27b9bea5/resourceGroups/e-shop-ci-pr-70-igntdmo'
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `### Deployment Successful :rocket:\n- View the website: ${webUrl}\n- View resources in the [Azure Portal](${portalUrl})`,
+            });
+
+  test:
+    name: Test Environment
+    if: github.event_name == 'pull_request'
+
+    needs:
+      - setup
+      - create
+
+    permissions:
+      contents: read
+      id-token: write
+      issues: write
+      pull-requests: write
+
+    uses: ./.github/workflows/env_test.yml
+    with:
+      name: ${{ needs.setup.outputs.name }}
+      type: ${{ needs.setup.outputs.type }}
+      # url: ${{ needs.create.outputs.url }}
+      # subscription: ${{ needs.create.outputs.subscription }}
+      # resource-group: ${{ needs.create.outputs.resource-group }}
+    secrets: inherit
