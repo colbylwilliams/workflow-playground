@@ -1,7 +1,7 @@
 prefix: ade
 suffix: 22887658
-devcenter: MyDevCenter123
-project: MyProject123
-catalog: Environments
-definition: FunctionApp
+# devcenter: MyDevCenter123
+# project: MyProject123
+# catalog: Environments
+# definition: FunctionApp
 prod-environment-name: my-prod-app
