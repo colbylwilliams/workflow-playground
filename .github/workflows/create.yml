@@ -39,6 +39,12 @@ jobs:
 
     needs: setup
 
+    permissions:
+      id-token: write
+      contents: read
+      issues: write
+      pull-requests: write
+
     steps:
       - name: Setup Environment
         uses: colbylwilliams/deployment-environments@azd
