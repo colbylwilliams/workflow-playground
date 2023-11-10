@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/alpha/azure.yaml.json
+
+name: eShopOnWeb
+platform:
+  type: devcenter
+  config:
+    name: Contoso-Media
+    project: E-Shop
+    catalog: catalog
+    environmentDefinition: eShop
+services:
+  web:
+    project: ./src/Web
+    language: csharp
+    host: appservice
