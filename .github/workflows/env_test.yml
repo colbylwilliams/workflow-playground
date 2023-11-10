@@ -108,7 +108,8 @@ jobs:
 
         run: |
           echo "### Playwright tests ${{ steps.playwright.outcome == 'failure' && 'failed :rotating_light:' || 'passed :white_check_mark:' }}" >> $GITHUB_STEP_SUMMARY
-          echo "- View the [test results](${{ steps.storage.outputs.url }})." >> $GITHUB_STEP_SUMMARY
+          echo "- View the [full test results](${{ steps.storage.outputs.url }})" >> $GITHUB_STEP_SUMMARY
+          echo "- View activities in [Microsoft Playwright Service](${{ vars.PLAYWRIGHT_SERVICE_PORTAL }})" >> $GITHUB_STEP_SUMMARY
 
       - name: Add Link to Pull Request
         if: ${{ always() && github.event_name == 'pull_request' && github.event.action == 'opened' }}
@@ -123,5 +124,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `### Playwright tests ${results}\n- View the [full test results](${testUrl})\n- View in [Microsoft Playwright Service](${portalUrl})`
+              body: `### Playwright tests ${results}\n- View the [full test results](${testUrl})\n- View activities in [Microsoft Playwright Service](${portalUrl})`
             });

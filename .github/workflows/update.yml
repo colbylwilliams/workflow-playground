@@ -55,7 +55,7 @@ jobs:
       - name: Setup
         run: |
           echo "### Deployment Successful :rocket:" >> $GITHUB_STEP_SUMMARY
-          echo "- View the website: ${{ steps.website.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- View the [website](${{ steps.website.outputs.url }})" >> $GITHUB_STEP_SUMMARY
           echo "- View resources in the [Azure Portal]($ADE_PORTAL_URL)" >> $GITHUB_STEP_SUMMARY
           echo '---' >> $GITHUB_STEP_SUMMARY
           echo "### Use the [azd cli](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) to deploy the application" >> $GITHUB_STEP_SUMMARY
