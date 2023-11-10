@@ -15,6 +15,8 @@ jobs:
       - name: Setup Environment
         id: setup
         uses: colbylwilliams/deployment-environments@azd
+        with:
+          azd: true
 
       # - run: echo "${{ github }}"
 
