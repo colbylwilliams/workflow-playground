@@ -32,7 +32,7 @@ jobs:
 
       - name: Setup Environment
         id: setup
-        uses: colbylwilliams/deployment-environments@main
+        uses: colbylwilliams/deployment-environments@azd
 
       - run: echo "Type ${{ steps.setup.outputs.type }}" >> $GITHUB_STEP_SUMMARY
       - run: echo "Name ${{ steps.setup.outputs.name }}" >> $GITHUB_STEP_SUMMARY
@@ -46,7 +46,7 @@ jobs:
 
     steps:
       - name: Setup Environment
-        uses: colbylwilliams/deployment-environments@main
+        uses: colbylwilliams/deployment-environments@azd
 
       - name: Website
         id: website

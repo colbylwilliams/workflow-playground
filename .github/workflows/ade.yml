@@ -14,15 +14,31 @@ jobs:
 
       - name: Setup Environment
         id: setup
-        uses: colbylwilliams/deployment-environments@main
+        uses: colbylwilliams/deployment-environments@azd
 
-      - run: echo "Type ${{ steps.setup.outputs.type }}" >> $GITHUB_STEP_SUMMARY
-      - run: echo "Name ${{ steps.setup.outputs.name }}" >> $GITHUB_STEP_SUMMARY
-
-      - run: echo "${{ github }}"
+      # - run: echo "${{ github }}"
 
       - run: |
-          echo "Environment Variables:" >> $GITHUB_STEP_SUMMARY
+          echo "### Outputs:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Name              | Value                                        |" >> $GITHUB_STEP_SUMMARY
+          echo "| ----------------- | -------------------------------------------- |" >> $GITHUB_STEP_SUMMARY
+          echo "| tenant            | ${{ steps.setup.outputs.tenant }}            |" >> $GITHUB_STEP_SUMMARY
+          echo "| subscription      | ${{ steps.setup.outputs.subscription }}      |" >> $GITHUB_STEP_SUMMARY
+          echo "| resource-group    | ${{ steps.setup.outputs.resource-group }}    |" >> $GITHUB_STEP_SUMMARY
+          echo "| resource-group-id | ${{ steps.setup.outputs.resource-group-id }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| exists            | ${{ steps.setup.outputs.exists }}            |" >> $GITHUB_STEP_SUMMARY
+          echo "| created           | ${{ steps.setup.outputs.created }}           |" >> $GITHUB_STEP_SUMMARY
+          echo "| portal-url        | ${{ steps.setup.outputs.portal-url }}        |" >> $GITHUB_STEP_SUMMARY
+          echo "| name              | ${{ steps.setup.outputs.name }}              |" >> $GITHUB_STEP_SUMMARY
+          echo "| type              | ${{ steps.setup.outputs.type }}              |" >> $GITHUB_STEP_SUMMARY
+          echo "| devcenter         | ${{ steps.setup.outputs.devcenter }}         |" >> $GITHUB_STEP_SUMMARY
+          echo "| project           | ${{ steps.setup.outputs.project }}           |" >> $GITHUB_STEP_SUMMARY
+          echo "| definition        | ${{ steps.setup.outputs.definition }}        |" >> $GITHUB_STEP_SUMMARY
+          echo "| parameters        | ${{ steps.setup.outputs.parameters }}        |" >> $GITHUB_STEP_SUMMARY
+
+      - run: |
+          echo "### Environment Variables:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Name                  | Value                  |" >> $GITHUB_STEP_SUMMARY
           echo "| --------------------- | ---------------------- |" >> $GITHUB_STEP_SUMMARY
@@ -35,17 +51,20 @@ jobs:
           echo "| ADE_PORTAL_URL        | $ADE_PORTAL_URL        |" >> $GITHUB_STEP_SUMMARY
           echo "| ADE_NAME              | $ADE_NAME              |" >> $GITHUB_STEP_SUMMARY
           echo "| ADE_TYPE              | $ADE_TYPE              |" >> $GITHUB_STEP_SUMMARY
+          echo "| ADE_DEVCENTER         | $ADE_DEVCENTER         |" >> $GITHUB_STEP_SUMMARY
+          echo "| ADE_PROJECT           | $ADE_PROJECT           |" >> $GITHUB_STEP_SUMMARY
+          echo "| ADE_DEFINITION        | $ADE_DEFINITION        |" >> $GITHUB_STEP_SUMMARY
+          echo "| ADE_PARAMETERS        | $ADE_PARAMETERS        |" >> $GITHUB_STEP_SUMMARY
 
       - run: |
-          echo "Outputs:" >> $GITHUB_STEP_SUMMARY
-          echo "| Name              | Value                                        |" >> $GITHUB_STEP_SUMMARY
-          echo "| ----------------- | -------------------------------------------- |" >> $GITHUB_STEP_SUMMARY
-          echo "| tenant            | ${{ steps.setup.outputs.tenant }}            |" >> $GITHUB_STEP_SUMMARY
-          echo "| subscription      | ${{ steps.setup.outputs.subscription }}      |" >> $GITHUB_STEP_SUMMARY
-          echo "| resource-group    | ${{ steps.setup.outputs.resource-group }}    |" >> $GITHUB_STEP_SUMMARY
-          echo "| resource-group-id | ${{ steps.setup.outputs.resource-group-id }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| exists            | ${{ steps.setup.outputs.exists }}            |" >> $GITHUB_STEP_SUMMARY
-          echo "| created           | ${{ steps.setup.outputs.created }}           |" >> $GITHUB_STEP_SUMMARY
-          echo "| portal-url        | ${{ steps.setup.outputs.portal-url }}        |" >> $GITHUB_STEP_SUMMARY
-          echo "| name              | ${{ steps.setup.outputs.name }}              |" >> $GITHUB_STEP_SUMMARY
-          echo "| type              | ${{ steps.setup.outputs.type }}              |" >> $GITHUB_STEP_SUMMARY
+          echo "### azd environment variables:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Name                                   | Value                                   |" >> $GITHUB_STEP_SUMMARY
+          echo "| -------------------------------------- | --------------------------------------- |" >> $GITHUB_STEP_SUMMARY
+          echo "| AZURE_ENV_NAME                         | $AZURE_ENV_NAME                         |" >> $GITHUB_STEP_SUMMARY
+          echo "| AZURE_DEVCENTER_NAME                   | $AZURE_DEVCENTER_NAME                   |" >> $GITHUB_STEP_SUMMARY
+          echo "| AZURE_DEVCENTER_PROJECT                | $AZURE_DEVCENTER_PROJECT                |" >> $GITHUB_STEP_SUMMARY
+          echo "| AZURE_DEVCENTER_CATALOG                | $AZURE_DEVCENTER_CATALOG                |" >> $GITHUB_STEP_SUMMARY
+          echo "| AZURE_DEVCENTER_ENVIRONMENT_DEFINITION | $AZURE_DEVCENTER_ENVIRONMENT_DEFINITION |" >> $GITHUB_STEP_SUMMARY
+          echo "| AZURE_DEVCENTER_ENVIRONMENT_TYPE       | $AZURE_DEVCENTER_ENVIRONMENT_TYPE       |" >> $GITHUB_STEP_SUMMARY
+          echo "| AZURE_DEVCENTER_ENVIRONMENT_USER       | $AZURE_DEVCENTER_ENVIRONMENT_USER       |" >> $GITHUB_STEP_SUMMARY
