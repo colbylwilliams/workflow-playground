@@ -13,11 +13,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: ./global.json
-
       - name: Install .NET Core
         uses: actions/setup-dotnet@v4
         with:
@@ -45,11 +40,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: ./global.json
-
       - name: Install .NET Core
         uses: actions/setup-dotnet@v4
         with:
@@ -76,11 +66,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: ./global.json
 
       - name: Install .NET Core
         uses: actions/setup-dotnet@v4
