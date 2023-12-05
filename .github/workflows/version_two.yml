@@ -13,10 +13,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install .NET Core
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.x
+          global-json-file: ./global.json
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.15
@@ -42,10 +42,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install .NET Core
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.x
+          global-json-file: ./global.json
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.15
@@ -71,10 +71,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install .NET Core
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.x
+          global-json-file: ./global.json
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.15
