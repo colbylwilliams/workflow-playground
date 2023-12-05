@@ -32,6 +32,8 @@ jobs:
         id: version
         run: echo "version=$GITVERSION_FULLSEMVER" >> $GITHUB_OUTPUT
 
+      - run: echo "$GITVERSION_FULLSEMVER" >> $GITHUB_STEP_SUMMARY
+
   buildb:
     name: Build B
     runs-on: ubuntu-latest
@@ -59,6 +61,8 @@ jobs:
         id: version
         run: echo "version=$GITVERSION_FULLSEMVER" >> $GITHUB_OUTPUT
 
+      - run: echo "$GITVERSION_FULLSEMVER" >> $GITHUB_STEP_SUMMARY
+
   buildc:
     name: Build C
     runs-on: ubuntu-latest
@@ -85,6 +89,8 @@ jobs:
       - name: Save Version
         id: version
         run: echo "version=$GITVERSION_FULLSEMVER" >> $GITHUB_OUTPUT
+
+      - run: echo "$GITVERSION_FULLSEMVER" >> $GITHUB_STEP_SUMMARY
 
   call:
     name: Build Call
