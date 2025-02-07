@@ -1,0 +1,11 @@
+name: Agent
+
+on: workflow_dispatch
+# on: dynamic
+
+jobs: 
+  agent_run:
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - run: echo "hello"
