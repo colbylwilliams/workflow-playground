@@ -1,0 +1,19 @@
+name: defaults
+
+on:
+  - workflow_dispatch
+  - push:
+      branches:
+        - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$THE_OTHER_THING_A"
+        env:
+         THE_OTHER_THING_A: ${{ vars.COPILOT_AGENT_FIREWALL_ENABLED || true }}
+
+      - run: echo "$THE_OTHER_THING_B"
+        env:
+         THE_OTHER_THING_B: ${{ vars.COPILOT_AGENT_FIREWALL_ENABLED || 'true' }}
