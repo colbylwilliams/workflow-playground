@@ -1,10 +1,6 @@
 name: defaults
 
-on:
-  - workflow_dispatch
-  - push:
-      branches:
-        - main
+on: workflow_dispatch
 
 jobs:
   check:
