@@ -6,6 +6,7 @@ jobs:
   check:
     runs-on:
       labels: ubuntu-latest
+      group: Default
     steps:
       - run: echo "$THE_OTHER_THING_A"
         env:
